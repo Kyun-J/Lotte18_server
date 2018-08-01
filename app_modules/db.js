@@ -8,11 +8,13 @@ autoIncrement.initialize(connection)
 const UserSchema = new mongoose.Schema({
   _id : String,
   pw : { type : String, required : true },
+  phone : String,
   lpoints : { type : Number, default : 0 }
 })
 
 const BandSchema = new mongoose.Schema({
   _id : String,
+  imgurl : { type : String, default : "" }
   users : [{ _id : { type : String, required : true } }],
   peeds : [{
     _id : { type : Number, ref : 'pid' },
