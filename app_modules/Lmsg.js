@@ -7,16 +7,17 @@ const db = require('./db')
 const UserModel = db.UserModel
 
 const authorizationGenerator = (key, secret) => 'Basic ' + new Buffer(`${key}:${secret}`).toString('base64')
-axios.defaults.headers.common['Authorization'] = authorizationGenerator('key', 'secret')
+axios.defaults.headers.post['Authorization'] = authorizationGenerator('class', 'secret12!@')
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const ftMessage = (phone,msg) => {
   return {
-  	"msg_id" : uuid(),
+  	"msg_id" : Date.now(),
   	"dest_phone" : phone,
   	"send_phone" : "01045843552",
   	"sender_key" : "d6b73318d4927aa80df1022e07fecf06c55b44bf",
   	"msg_body" : msg,
-  	"ad_flag" : "N",
+  	"ad_flag" : "N"
   	// "button" :[
   	//       {
   	//         "name":"앱 링크 버튼",
@@ -45,13 +46,13 @@ exports.LMessage = (req,res,next) => {
       log(err)
       res.sendStatus(500)
     } else {
-      axios.post('http://210.93.181.229:9090/v1/send/kakao-friend', ftMessage(one.phone,req.query.msg))
+      body = JSON.stringify(ftMessage(one.phone.replace(/-/gi,""),req.query.msg))
+      axios.post('http://210.93.181.229:9090/v1/send/kakao-friend',body)
     	.then(result => {
-        log(result.data)
         res.sendStatus(200)
       })
     	.catch(e => {
-        log(e.response.data)
+        log(e)
         res.sendStatus(500)
       })
     }

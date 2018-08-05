@@ -5,20 +5,16 @@ const fs = require('fs')
 const BandModel = db.BandModel
 
 exports.loadPeeds = (req,res,next) => {
-  bid = req.query.bandid
-  pid = req.query.peedid
   BandModel.find({
-    _id : bid,
-    'peeds._id' : { $gt : pid }
+    _id : req.query.bandid
   })
-  .limit(20)
   .exec((err,rows) => {
     if(err) {
       log(err)
       res.sendStatus(500)
     } else {
       res.set('Content-Type', 'application/json; charset=utf-8')
-      res.send(rows)
+      res.send(rows[0].peeds.slice(req.query.peedid,20))
     }
   })
 }

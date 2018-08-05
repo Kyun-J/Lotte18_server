@@ -29,12 +29,10 @@ nowtime = () => {
 exports.slog = (req,res) => {
   delay = Date.now() - req.reqtime
 	logm = nowtime() + req.connection.remoteAddress + ' ' + req.method + req.originalUrl + ' ' + res.statusCode + ' ' + delay
-	if(!(accessLogStream == null || accessLogStream == undefined)) accessLogStream.write(logm+'\n')
 	console.log(logm)
 }
 
 exports.clog = (msg) => {
   logm = nowtime() + ' - ' + msg
-	if(!(accessLogStream == null || accessLogStream == undefined)) accessLogStream.write(logm+'\n');
 	console.log(logm);
 }

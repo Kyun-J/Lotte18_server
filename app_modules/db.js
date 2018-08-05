@@ -1,12 +1,10 @@
 const mongoose = require('mongoose')
-const autoIncrement = require('mongoose-auto-increment')
 
-const connection = mongoose.connect('mongodb://localhost/lotte18')
-
-autoIncrement.initialize(connection)
+mongoose.connect('mongodb://localhost:27017/lotte',{ useNewUrlParser: true })
 
 const UserSchema = new mongoose.Schema({
   _id : String,
+  sex : { type : Boolean, required : true },
   pw : { type : String, required : true },
   phone : String,
   lpoints : { type : Number, default : 0 }
@@ -14,13 +12,13 @@ const UserSchema = new mongoose.Schema({
 
 const BandSchema = new mongoose.Schema({
   _id : String,
-  imgurl : { type : String, default : "" }
+  imgurl : { type : String, default : "" },
   users : [{ _id : { type : String, required : true } }],
   peeds : [{
-    _id : { type : Number, ref : 'pid' },
+    pid : Number,
     title : { type : String, default : "" },
     contents : String,
-    imgurl : String
+    imgurl : { type : String, default : "" }
   }],
   games : [{
     type : { type : Number, required : true },
@@ -30,8 +28,6 @@ const BandSchema = new mongoose.Schema({
     prize : { type : Number, required : true }
   }]
 })
-
-BandSchema.plugin(autoIncrement.plugin,'pid')
 
 const UserModel = mongoose.model('User',UserSchema)
 const BandModel = mongoose.model('Band',BandSchema)

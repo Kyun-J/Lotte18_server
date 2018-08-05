@@ -14,7 +14,8 @@ exports.login = (req,res,next) => {
     if(err) {
       log(err)
       res.sendStatus(500)
-    } else res.sendStatus(200)
+    } else if(one === null || one === undefined) res.sendStatus(500)
+    else res.sendStatus(200)
   })
 }
 
