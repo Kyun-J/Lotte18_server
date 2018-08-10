@@ -58,11 +58,17 @@ family = new BandModel({
   _id : "가족",
   imgurl : "b1",
   users : [{
-    _id : "김롯데"
+    _id : "김롯데",
+    sex : true
   },{
-    _id : "아빠"
+    _id : "신롯데",
+    sex : false
   },{
-    _id : "엄마"
+    _id : "아빠",
+    sex : true
+  },{
+    _id : "엄마",
+    sex : false
   }],
   peeds : [{
     pid : 0,
@@ -104,13 +110,17 @@ for(i = 1; i < 4; i++){
     _id : "친구들"+i,
     imgurl : "f"+i,
     users : [{
-      _id : "김롯데"
+      _id : "신롯데",
+      sex : false
     },{
-      _id : "친구"+(1*i)
+      _id : "친구"+(1*i),
+      sex : false
     },{
-      _id : "친구"+(2*i)
+      _id : "친구"+(2*i),
+      sex : false
     },{
-      _id : "친구"+(3*i)
+      _id : "친구"+(3*i),
+      sex : false
     }]
   })
   band.save((err) => {

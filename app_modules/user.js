@@ -15,7 +15,7 @@ exports.login = (req,res,next) => {
       log(err)
       res.sendStatus(500)
     } else if(one === null || one === undefined) res.sendStatus(500)
-    else res.sendStatus(200)
+    else res.send(one)
   })
 }
 
@@ -33,6 +33,7 @@ exports.joinBand = (req,res,next) => {
           log(err)
           res.sendStatus(500)
         } else {
+          res.set('Content-Type', 'application/json; charset=utf-8')
           res.sendStatus(200)
         }
       })
@@ -42,7 +43,7 @@ exports.joinBand = (req,res,next) => {
 
 exports.myBandList = (req,res,next) => {
   BandModel.find({
-    users : { _id : req.query.id }
+    "users._id" : req.query.id
   }, (err,rows) => {
     if(err) {
       log(err)

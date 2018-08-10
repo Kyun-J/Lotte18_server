@@ -13,7 +13,10 @@ const UserSchema = new mongoose.Schema({
 const BandSchema = new mongoose.Schema({
   _id : String,
   imgurl : { type : String, default : "" },
-  users : [{ _id : { type : String, required : true } }],
+  users : [{
+    _id : { type : String, required : true },
+    sex : { type : Boolean, required : true }
+  }],
   peeds : [{
     pid : Number,
     title : { type : String, default : "" },
